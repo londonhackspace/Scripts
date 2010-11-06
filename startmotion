@@ -1,0 +1,10 @@
+#!/bin/bash
+
+./netcamfix &
+
+
+while true; do
+  LD_PRELOAD=/usr/lib/libv4l/v4l1compat.so motion
+  echo 'Motion died.  Sleeping for 5 seconds...'
+  sleep 5
+done

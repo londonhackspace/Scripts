@@ -1,0 +1,8 @@
+#!/bin/bash
+/usr/sbin/tcpkill port 8001 &
+/usr/sbin/tcpkill port 8002 &
+/usr/sbin/tcpkill port 8003 &
+
+sleep 1
+
+/usr/bin/killall tcpkill
