@@ -1,0 +1,2 @@
+#!/bin/bash
+curl -s netcam/goform/WebCam_MotoForm?MotoBut=Light --user admin:hackspace
