@@ -41,6 +41,9 @@ print $output[1], "In:", $output[4], " ",$output[1], "Out:" , $output[5], " ";
 #load in the adsl data
 @buffer = $telnet->cmd(':adsl info expand enabled');
 
+#
+# XXX also get line uptime.
+#
 
 #split the downstream speed data out
 #get just the numbers
@@ -64,11 +67,21 @@ print "snUp:", $signo[2], " snDown:", $signo[1], " ";
 
 @signo =  split(/\:/, $buffer[18]);
 @signo = split(/\s+/, $signo[1]);
-print "AttUp:", $signo[2], " AttDown:", $signo[1], "\n";
+print "AttUp:", $signo[2], " AttDown:", $signo[1], " ";
 
 
-
-
+@buffer = $telnet->cmd(':connection stats');
+chomp @buffer;
+my @active = split(/\:\s*/, $buffer[5]);
+my @halfopen = split(/\:\s*/, $buffer[6]);
+my @idle = split(/\:\s*/, $buffer[10]);
+my @tcp = split(/\:\s*/, $buffer[13]);
+my @udp = split(/\:\s*/, $buffer[14]);
+my @icmp = split(/\:\s*/, $buffer[15]);
+my @other = split(/\:\s*/, $buffer[16]);
+print "Active:", $active[1], " HalfOpen:", $halfopen[1], " Idle:", $idle[1], " ";
+print "TCP:", $tcp[1], " UDP:", $udp[1], " ICMP:", $icmp[1], " Other:", $other[1], " ";
+print "\n";
 
 
 #$telnet->cmd('exit');
