@@ -1,0 +1,32 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:    doorbot-listeners
+# Required-Start:
+# Required-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start all doorbot listeners with screen
+### END INIT INFO
+
+PROC=/usr/bin/screen
+ARGS='-dm -S doorbot-listeners -c /etc/doorbot-listeners-screenrc.conf'
+PIDFILE=/var/run/doorbot-listeners.pid
+
+case "$1" in
+  start)
+    start-stop-daemon --start --pidfile $PIDFILE --exec $PROC --background --make-pidfile -- $ARGS
+  ;;
+  stop)
+    start-stop-daemon --stop --pidfile $PIDFILE --exec $PROC --retry TERM/10/KILL/5 --oknodo && rm $PIDFILE
+  ;;
+  restart|reload|force-reload)
+    $0 stop
+    $0 start
+  ;;
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 2
+  ;;
+esac
+exit 0
+
