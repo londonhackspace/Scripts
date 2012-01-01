@@ -9,7 +9,7 @@
 ### END INIT INFO
 
 PROC=/usr/bin/screen
-ARGS='-dm -S doorbot-listeners -c /etc/doorbot-listeners-screenrc.conf'
+ARGS='-Dm -S doorbot-listeners -c /etc/doorbot-listeners-screenrc.conf'
 PIDFILE=/var/run/doorbot-listeners.pid
 
 case "$1" in
@@ -17,7 +17,7 @@ case "$1" in
     start-stop-daemon --start --pidfile $PIDFILE --exec $PROC --background --make-pidfile -- $ARGS
   ;;
   stop)
-    start-stop-daemon --stop --pidfile $PIDFILE --exec $PROC --retry TERM/10/KILL/5 --oknodo && rm $PIDFILE
+    start-stop-daemon --stop --pidfile $PIDFILE --exec $PROC --retry TERM/10/KILL/5 && rm $PIDFILE
   ;;
   restart|reload|force-reload)
     $0 stop
