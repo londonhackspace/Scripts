@@ -1,0 +1,11 @@
+service netcamfix
+{
+    instances   = 10
+    type        = UNLISTED
+    server      = /usr/local/bin/scripts/netcamfix
+    socket_type = stream
+    wait        = no
+    user        = root
+    protocol    = tcp
+    port        = 8031
+}

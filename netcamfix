@@ -1,8 +1,4 @@
 #!/bin/bash
-# Teeny weeny proxy server, for use with xinetd
 
 netcam=172.31.24.169
-
-while true; do
-  nc -w 3 $netcam 80 | sed -r 's/(boundary=)--sonixboundary/\1sonixboundry/'
-done
+nc -w 3 $netcam 80 | sed -r 's/(boundary=)--sonixboundary/\1sonixboundry/'
